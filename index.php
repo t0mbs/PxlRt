@@ -1,4 +1,4 @@
-<?php define('TABLE_DIMENSIONS', 10, TRUE); 
+<?php define('TABLE_DIMENSIONS', 32, TRUE); 
 $colour_array = array('black', 'navy')
 
 ?>
@@ -40,6 +40,9 @@ $colour_array = array('black', 'navy')
 			</li>
 			<li>
 				Control-click on a pixel to get its color
+			</li>
+			<li>
+				Click and drag to color multiple squares at once.
 			</li>
 		</ul>
 	</div>
