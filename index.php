@@ -14,6 +14,15 @@ $colour_array = array('black', 'navy')
 		<h1>Pixel Art</h1>
 	</div>
 	<div class="grid">
+		<div class="quick-palette">
+			<div class="color"></div>
+			<div class="color"></div>
+			<div class="color"></div>
+			<div class="color"></div>
+			<div class="other">Other</div>
+			<input type="text" value="#333" id="hex_field">
+			<button class="erase">Wipe Canvas</button>
+		</div>
 		<table cellspacing="0">
 			<?php for ($i=0; $i<TABLE_DIMENSIONS; $i+=1) : ?>
 				<tr>
@@ -24,12 +33,8 @@ $colour_array = array('black', 'navy')
 			<?php endfor; ?>
 		</table>
 	</div>
-	<div class="sidebar">
-		<h2>Chose your colour!</h2>
-		<input type="text" value="#333" id="hex_field">
-		<button class="erase">Wipe Canvas</button>
-		<h2>Fast Colours</h2>
 
+	<div class="sidebar">
 		<h2>Quick Guide</h2>
 		<ul>
 			<li>

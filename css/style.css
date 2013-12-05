@@ -14,7 +14,7 @@ div.header {
 div.grid {
 	width: 60%;
 	min-width: 200px;
-	padding: 5%;
+	padding: 0 5% 5% 5%;
 	cursor: url('images/sword_cursor.png'), crosshair;
 }
 
@@ -28,9 +28,15 @@ div.grid table {
 
 div.grid td {
 	width: 3.125%;
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
 }
 
-div.grid td, div.grid table {
+div.grid td, div.grid table, div.quick-palette div {
 	border: 1px solid #ccc;
 }
 
@@ -42,4 +48,23 @@ div.sidebar {
 
 div.sidebar h2 {
 	margin: 0;
+}
+
+div.quick-menu {
+	position: absolute;
+	display: none;
+	border: 10px solid grey;
+	padding: 0 20px 20px;
+	background-color: white;
+}
+
+div.quick-palette {
+	height: 10%;
+	padding: 5%;
+}
+div.quick-palette div {
+	height: 50px;
+	width: 50px;
+	float: left;
+	margin: auto;
 }
