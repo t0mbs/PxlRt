@@ -23,10 +23,20 @@ jQuery( document ).ready( function ( $ ) {
         } else if( e.button == 2 ) { 
 	    	right_down = true;
 	    	ChangeColor( 'white', $(this) );
-	    } else {
+	    } else if (e.button == 0) {
 	    	left_down = true;
 	    	ChangeColor( brush_color, $(this) );
 	    }
+  	});
+
+  	$('button.zoom').click(function() {
+  		var current_width = $('table').width();
+  		if ($(this).hasClass('out')) {
+  			$('table').css('width', current_width * 0.9);
+  		} else {
+  			$('table').css('width', current_width * 1.1);
+  		}
+  		TableResize();
   	});
 
   	$(document).mouseup(function(e) {

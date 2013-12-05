@@ -1,21 +1,27 @@
 body {
 	font-family: 'Electrolize', sans-serif;
 	margin: 0;
+	height: 100%;
+	min-height: 300px;
+	overflow: hidden;
 }
 
 div.header {
 	width: 100%;
+	height: 20%;
 	border-bottom: 2px solid #3366FF;
 	text-align: center;
 	color: #3366FF;
-	padding: 20px 0;
+	min-height: 65px;
+	position: relative;
 }
 
 div.grid {
-	width: 60%;
+	height: 80%;
+	width: 100%;
 	min-width: 200px;
-	padding: 0 5% 5% 5%;
 	cursor: url('images/sword_cursor.png'), crosshair;
+	overflow: scroll;
 }
 
 div.grid, div.sidebar {
@@ -27,7 +33,7 @@ div.grid table {
 }
 
 div.grid td {
-	width: 3.125%;
+	width: 2.2%;
 	-webkit-touch-callout: none;
 	-webkit-user-select: none;
 	-khtml-user-select: none;
@@ -44,6 +50,7 @@ div.sidebar {
 	width: 30%;
 	min-width: 100px;
 	padding-top: 5%;
+	display: none;
 }
 
 div.sidebar h2 {
@@ -58,13 +65,18 @@ div.quick-menu {
 	background-color: white;
 }
 
-div.quick-palette {
-	height: 10%;
-	padding: 5%;
+div.header h1 {
+	margin: 0;
 }
+
+div.quick-palette {
+	position: absolute;
+	bottom: 0;
+}
+
 div.quick-palette div {
-	height: 50px;
-	width: 50px;
+	height: 20px;
+	width: 20px;
 	float: left;
 	margin: auto;
 }

@@ -12,8 +12,6 @@ $colour_array = array('black', 'navy')
 <body oncontextmenu="return false;">
 	<div class="header">
 		<h1>Pixel Art</h1>
-	</div>
-	<div class="grid">
 		<div class="quick-palette">
 			<div class="color"></div>
 			<div class="color"></div>
@@ -22,7 +20,11 @@ $colour_array = array('black', 'navy')
 			<div class="other">Other</div>
 			<input type="text" value="#333" id="hex_field">
 			<button class="erase">Wipe Canvas</button>
+			<button class="zoom out">-</button>
+			<button class="zoom in">+</button>
 		</div>
+	</div>
+	<div class="grid">
 		<table cellspacing="0">
 			<?php for ($i=0; $i<TABLE_DIMENSIONS; $i+=1) : ?>
 				<tr>
