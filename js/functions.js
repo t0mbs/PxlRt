@@ -27,11 +27,8 @@ jQuery( document ).ready( function ( $ ) {
   	});
 
   	$(document).mouseup(function(e) {
-  		if( e.button == 2 ) { 
-	    	right_down = false;
-	    } else {
-	    	left_down = false;
-	    }
+  		right_down = false;
+  		left_down = false;
   	});
 
   	////Checks if is currently being hovered over while clicking; this enables to colour multiple squares at once

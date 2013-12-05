@@ -15,6 +15,7 @@ div.grid {
 	width: 60%;
 	min-width: 200px;
 	padding: 5%;
+	cursor: url('images/sword_cursor.png'), crosshair;
 }
 
 div.grid, div.sidebar {
