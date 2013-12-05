@@ -1,7 +1,4 @@
-<?php define('TABLE_DIMENSIONS', 32, TRUE); 
-$colour_array = array('black', 'navy')
-
-?>
+<?php define('TABLE_DIMENSIONS', 32, TRUE); ?>
 <html>
 <head>
 	<link rel="stylesheet" type="text/css" href="css/style.css">
@@ -20,8 +17,9 @@ $colour_array = array('black', 'navy')
 			<div class="other">Other</div>
 			<input type="text" value="#333" id="hex_field">
 			<button class="erase">Wipe Canvas</button>
-			<button class="zoom out">-</button>
-			<button class="zoom in">+</button>
+			<button class="zoom out"></button>
+			<button class="zoom in"></button>
+			<button class="zoom clear"></button>
 		</div>
 	</div>
 	<div class="grid">
@@ -29,7 +27,7 @@ $colour_array = array('black', 'navy')
 			<?php for ($i=0; $i<TABLE_DIMENSIONS; $i+=1) : ?>
 				<tr>
 				<?php for ($j=0; $j<TABLE_DIMENSIONS; $j+=1) : ?>
-					<td></td>
+					<td class="clear"></td>
 				<?php endfor; ?>
 				</tr>
 			<?php endfor; ?>

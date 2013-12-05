@@ -3,7 +3,7 @@ jQuery( document ).ready( function ( $ ) {
 	var left_down = false;
 	var right_down = false;
 	var mouse_position = { x: 0, y: 0 };
-	var favorite_colors = new Array( '#333', 'blue', 'yellow', 'red' );;
+	var favorite_colors = new Array( '#333', 'blue', 'yellow', 'red' );
 
 	//functions to run on page lod
 	TableResize();
@@ -13,7 +13,7 @@ jQuery( document ).ready( function ( $ ) {
 
 	$(window).resize( function () { TableResize(); } );
 	$('input#hex_field').keyup( function() { brush_color = $(this).val(); } );
-	$('button.erase').click( function() { ChangeColor('white', $('td') ); } );
+	$('button.erase').click( function() { ChangeColor( $('td') ); } );
 	$('div.color').click(function() { brush_color = $(this).css('background-color'); });
 
 	////Rebinds the right-click to erase a single cell
@@ -22,7 +22,7 @@ jQuery( document ).ready( function ( $ ) {
             brush_color = $(this).css('background-color');
         } else if( e.button == 2 ) { 
 	    	right_down = true;
-	    	ChangeColor( 'white', $(this) );
+	    	WipeColor( $(this) );
 	    } else if (e.button == 0) {
 	    	left_down = true;
 	    	ChangeColor( brush_color, $(this) );
@@ -31,10 +31,16 @@ jQuery( document ).ready( function ( $ ) {
 
   	$('button.zoom').click(function() {
   		var current_width = $('table').width();
-  		if ($(this).hasClass('out')) {
-  			$('table').css('width', current_width * 0.9);
+  		if ( $(this).hasClass('out') ) {
+  			if (current_width > 275) {
+  				$('table').css('width', current_width * 0.9);
+  			}
+  		} else if ( $(this).hasClass('clear') ) {
+  			$('table').css('width', '100%');
   		} else {
-  			$('table').css('width', current_width * 1.1);
+  			if (current_width < 5000) {
+  				$('table').css('width', current_width * 1.1);
+  			}
   		}
   		TableResize();
   	});
@@ -54,20 +60,31 @@ jQuery( document ).ready( function ( $ ) {
   		if (left_down) {
   			ChangeColor( brush_color, $(this) );
   		} else if (right_down) {
-  			ChangeColor( 'white', $(this) );
+  			WipeColor( $(this) );
   		}
   	});
 
 	//Helper Functions
 	////Table Resize ensures that the cells are responsive and remain square shapped
 	function TableResize() {
-	  var size = $('td').width();
-	  $('td').height(size);
+	  var width = $('td').width();
+	  $('td').height(width + 2);
+	  if ( $('table').width() < 500 ) {
+	  	$('td').css('border-width', 0);
+	  } else {
+	  	$('td').css('border-width', 1);
+	  }
 	}
 
 	////Change Color changes the color of an individual table cell
 	function ChangeColor( color, td ) {
-		td.css('background-color', color);
+		td.removeClass( 'clear' );
+		td.css( 'background-color', color );
+	}
+
+	function WipeColor( td ) {
+		td.addClass( 'clear' );
+		td.css( 'background-color', 'none' );
 	}
 
 	function FavoriteColors( favorite_colors ) {

@@ -80,3 +80,31 @@ div.quick-palette div {
 	float: left;
 	margin: auto;
 }
+
+button {
+	border: 5px solid grey;
+	background-color: #aaa;
+	min-height: 50px;
+	min-width: 50px;
+}
+
+button:hover {
+	background-color: #fff;
+}
+
+button.zoom.out {
+	background-image: url('images/zoom-out.png');
+}
+
+button.zoom.in {
+	background-image: url('images/zoom-in.png');
+}
+
+button.zoom.clear {
+	background-image: url('images/zoom-clear.png');
+}
+
+td.clear {
+	background: url('images/empty-tile.png') 0 0;
+	background-size: 100%;
+}
