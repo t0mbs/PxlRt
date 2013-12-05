@@ -1,4 +1,6 @@
 <?php define('TABLE_DIMENSIONS', 10, TRUE); 
+$colour_array = array('black', 'navy')
+
 ?>
 <html>
 <head>
@@ -26,6 +28,20 @@
 		<h2>Chose your colour!</h2>
 		<input type="text" value="#333" id="hex_field">
 		<button class="erase">Wipe Canvas</button>
+		<h2>Fast Colours</h2>
+
+		<h2>Quick Guide</h2>
+		<ul>
+			<li>
+				To start drawing, click on a pixel to color
+			</li>
+			<li>
+				Right-click on a single pixel to wipe it
+			</li>
+			<li>
+				Control-click on a pixel to get its color
+			</li>
+		</ul>
 	</div>
 </body>
 </html>
