@@ -6,6 +6,8 @@ body {
 	min-height: 300px;
 	overflow: hidden;
 	background-color: silver;
+	min-width: 665px;
+	min-height: 230px;
 }
 
 body, body *, div.playlist object.grooveshark-player {
@@ -32,8 +34,8 @@ div.header {
 
 div.header p.stamp {
 	position: absolute;
-	bottom: -9;
-	left: 10;
+	bottom: -9px;
+	left: 10px;
 }
 
 /* -- Quick Palette and relevant buttons */
@@ -115,13 +117,13 @@ div.resize {
 
 div.playlist {
 	position: absolute;
-	bottom: 0;
+	bottom: 0px;
 	z-index: 1000;
 }
 
 div.playlist div.collapse {
 	position: absolute;
-	bottom: 140;
+	bottom: 140px;
 	width: 191px;
 	height: 20px;
 	border: 5px solid orange;
@@ -132,7 +134,7 @@ div.playlist div.collapse {
 
 div.playlist object.grooveshark-player {
 	position: absolute;
-	bottom: 0;
+	bottom: 0px;
 }
 
 div.playlist object.grooveshark-player.down {
@@ -140,7 +142,7 @@ div.playlist object.grooveshark-player.down {
 }
 
 div.playlist div.collapse.down {
-	bottom: 0;
+	bottom: 0px;
 }
 
 /* Grid and Table Styles */
@@ -161,10 +163,10 @@ div.grid table {
 	width: 50%;
 	margin: auto;
 	position: absolute;
-    top: 0; 
-    bottom: 0; 
-    left: 0; 
-    right: 0;
+    top: 0px; 
+    bottom: 0px; 
+    left: 0px; 
+    right: 0px;
     display: hidden;
 }
 
@@ -174,7 +176,6 @@ div.grid td {
 	-khtml-user-select: none;
 	-moz-user-select: none;
 	-ms-user-select: none;
-	user-select: none;
 }
 
 div.grid .border {

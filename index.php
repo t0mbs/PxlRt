@@ -59,7 +59,7 @@
 	<div class="playlist">
 		<div class="collapse down">Mayhaps an easter egg?</div>
 		<!-- This is just a Grooveshark embed link, it made my QA testing more enjoyable and it will hopefully make yours as well -->
-		<object class="grooveshark-player" class="down" width="200" height="140" classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" id="gsPlaylist5763147798" name="gsPlaylist5763147798">
+		<object class="grooveshark-player down" width="200" height="140" classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" id="gsPlaylist5763147798" name="gsPlaylist5763147798">
 			<param name="movie" value="http://grooveshark.com/widget.swf" />
 			<param name="wmode" value="window" />
 			<param name="allowScriptAccess" value="always" />
