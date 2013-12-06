@@ -20,8 +20,16 @@ div.grid {
 	height: 80%;
 	width: 100%;
 	min-width: 200px;
-	cursor: url('images/sword_cursor.png'), crosshair;
+	cursor: url('images/sword-cursor.png'), crosshair;
 	overflow: scroll;
+}
+
+div.grid.eraser {
+	cursor: url('images/shovel-cursor.png'), crosshair;
+}
+
+div.grid.picker {
+	cursor: url('images/pickaxe-cursor.png'), crosshair;
 }
 
 div.grid, div.sidebar {
@@ -30,6 +38,7 @@ div.grid, div.sidebar {
 
 div.grid table {
 	width: 90%;
+	margin: auto;
 }
 
 div.grid td {
@@ -42,7 +51,7 @@ div.grid td {
 	user-select: none;
 }
 
-div.grid td, div.grid table, div.quick-palette div {
+div.grid .border {
 	border: 1px solid #ccc;
 }
 
@@ -84,8 +93,8 @@ div.quick-palette div {
 button {
 	border: 5px solid grey;
 	background-color: #aaa;
-	min-height: 50px;
-	min-width: 50px;
+	min-height: 54px;
+	min-width: 54px;
 }
 
 button:hover {
@@ -104,7 +113,16 @@ button.zoom.clear {
 	background-image: url('images/zoom-clear.png');
 }
 
+button.wipe {
+	background-image: url('images/wipe-button.png');
+}
+
+button.grid-toggle {
+	background-image: url('images/grid-button.png');
+}
+
 td.clear {
 	background: url('images/empty-tile.png') 0 0;
 	background-size: 100%;
 }
+

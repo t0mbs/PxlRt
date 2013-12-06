@@ -13,8 +13,10 @@ jQuery( document ).ready( function ( $ ) {
 
 	$(window).resize( function () { TableResize(); } );
 	$('input#hex_field').keyup( function() { brush_color = $(this).val(); } );
-	$('button.erase').click( function() { ChangeColor( $('td') ); } );
+	$('button.wipe').click( function() { WipeColor( $('td') ); } );
 	$('div.color').click(function() { brush_color = $(this).css('background-color'); });
+	$('button.grid-toggle').click(function() { $('td').toggleClass('border'); });
+	$('button.background-fill').click(function() { ChangeBackground( brush_color ) });
 
 	////Rebinds the right-click to erase a single cell
 	$('td').mousedown(function(e){ 
@@ -69,11 +71,6 @@ jQuery( document ).ready( function ( $ ) {
 	function TableResize() {
 	  var width = $('td').width();
 	  $('td').height(width + 2);
-	  if ( $('table').width() < 500 ) {
-	  	$('td').css('border-width', 0);
-	  } else {
-	  	$('td').css('border-width', 1);
-	  }
 	}
 
 	////Change Color changes the color of an individual table cell
@@ -85,6 +82,12 @@ jQuery( document ).ready( function ( $ ) {
 	function WipeColor( td ) {
 		td.addClass( 'clear' );
 		td.css( 'background-color', 'none' );
+		td.css( 'background-image', '' );
+	}
+
+	function ChangeBackground ( color ) {
+		$('td.clear').css('background-image', 'none');
+		$('td.clear').css('background-color', color);
 	}
 
 	function FavoriteColors( favorite_colors ) {
