@@ -1,27 +1,31 @@
 jQuery( document ).ready( function ( $ ) {
-	var brush_color = '#333';
+	var brush_color = '#000080';
 	var left_down = false;
 	var right_down = false;
 	var mouse_position = { x: 0, y: 0 };
-	var favorite_colors = new Array( '#333', 'blue', 'yellow', 'red' );
 
-	//functions to run on page lod
+	//functions to run on page load
 	TableResize();
-	FavoriteColors( favorite_colors );
+	ChangeBrushColor( '#000080' );
 
 	//Action Listeners
 
 	$(window).resize( function () { TableResize(); } );
-	$('input#hex_field').keyup( function() { brush_color = $(this).val(); } );
 	$('button.wipe').click( function() { WipeColor( $('td') ); } );
-	$('div.color').click(function() { brush_color = $(this).css('background-color'); });
 	$('button.grid-toggle').click(function() { $('td').toggleClass('border'); });
 	$('button.background-fill').click(function() { ChangeBackground( brush_color ) });
+
+	$('button.test').ColorPicker({
+		layout : 'hex',
+		onChange:function( hsb, hex, rgb, fromSetColor ) {
+			ChangeBrushColor('#' + hex);
+		}
+		});
 
 	////Rebinds the right-click to erase a single cell
 	$('td').mousedown(function(e){ 
 		if (e.ctrlKey) {
-            brush_color = $(this).css('background-color');
+			ChangeBrushColor( $(this).css('background-color') )
         } else if( e.button == 2 ) { 
 	    	right_down = true;
 	    	WipeColor( $(this) );
@@ -38,7 +42,7 @@ jQuery( document ).ready( function ( $ ) {
   				$('table').css('width', current_width * 0.9);
   			}
   		} else if ( $(this).hasClass('clear') ) {
-  			$('table').css('width', '100%');
+  			$('table').css('width', '50%');
   		} else {
   			if (current_width < 5000) {
   				$('table').css('width', current_width * 1.1);
@@ -80,19 +84,37 @@ jQuery( document ).ready( function ( $ ) {
 	}
 
 	function WipeColor( td ) {
+		//We want the "erase" function to make the cells the "current background color" rather than empty
+		var current_background_image = $('td.clear').css('background-image');
+		var current_background = $('td.clear').css('background-color');
 		td.addClass( 'clear' );
-		td.css( 'background-color', 'none' );
-		td.css( 'background-image', '' );
+		//To do so we first check if the background-image has been overriden on our "clear" cells
+		if (current_background_image == 'none') {
+			//If so we will paint this cell the same color as our clear cells
+			td.css( 'background-color', current_background );
+		} else {
+			//If not we will override the inline classes of background-image and background-color
+			td.css( 'background-image', '' );
+			td.css( 'background-color', 'none' );
+		}
 	}
 
 	function ChangeBackground ( color ) {
+		//Step 1 is to "wipe" the tiles that have the same colour as our desired background
+		var current_background = $('td.clear').css('background-color');
+		$('td').filter(function() {
+		   return $(this).css('background-color') == current_background;
+		}).addClass('clear');
+
+		//Step 2 is to remove the "empty" background-image and colour in the specific tiles
 		$('td.clear').css('background-image', 'none');
 		$('td.clear').css('background-color', color);
 	}
 
-	function FavoriteColors( favorite_colors ) {
-		for ( var i=0; i < favorite_colors.length; i++ ) {
-			$('div.quick-palette').children('.color').eq(i).css('background-color', favorite_colors[i]);
-		}
+	function ChangeBrushColor( color ) {
+		brush_color;
+		brush_color = color;
+		$('button.test').css( 'background-color', color );
+		$('button.test').ColorPickerSetColor( color );
 	}
 } );

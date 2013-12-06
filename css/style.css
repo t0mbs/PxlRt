@@ -8,12 +8,10 @@ body {
 
 div.header {
 	width: 100%;
-	height: 20%;
 	border-bottom: 2px solid #3366FF;
 	text-align: center;
 	color: #3366FF;
 	min-height: 65px;
-	position: relative;
 }
 
 div.grid {
@@ -32,13 +30,10 @@ div.grid.picker {
 	cursor: url('images/pickaxe-cursor.png'), crosshair;
 }
 
-div.grid, div.sidebar {
-	float: left;
-}
-
 div.grid table {
-	width: 90%;
+	width: 50%;
 	margin: auto;
+	background-color: grey;
 }
 
 div.grid td {
@@ -55,32 +50,9 @@ div.grid .border {
 	border: 1px solid #ccc;
 }
 
-div.sidebar {
-	width: 30%;
-	min-width: 100px;
-	padding-top: 5%;
-	display: none;
-}
-
-div.sidebar h2 {
-	margin: 0;
-}
-
-div.quick-menu {
-	position: absolute;
-	display: none;
-	border: 10px solid grey;
-	padding: 0 20px 20px;
-	background-color: white;
-}
-
-div.header h1 {
-	margin: 0;
-}
 
 div.quick-palette {
-	position: absolute;
-	bottom: 0;
+	margin: auto;
 }
 
 div.quick-palette div {
@@ -119,6 +91,10 @@ button.wipe {
 
 button.grid-toggle {
 	background-image: url('images/grid-button.png');
+}
+
+button.background-fill {
+	background-image: url('images/paint-bucket.png');
 }
 
 td.clear {
