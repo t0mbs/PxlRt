@@ -137,6 +137,7 @@ div.playlist object {
 
 div.playlist object.down {
 	bottom: -145;
+	visibility: hidden;
 }
 
 div.playlist div.collapse.down {
