@@ -7,8 +7,6 @@ jQuery( document ).ready( function ( $ ) {
 	var left_down = false;
 	var right_down = false;
 
-
-
 	//Functions to run on page load
 	
 	////Instantiating the Color Picker API
@@ -26,12 +24,11 @@ jQuery( document ).ready( function ( $ ) {
 		fixed   : true
 	});
 
-	////Making sure all table cells start with an equal height and width
-	TableResize();
+	////Instantiate the table with an ajax call (see function for further details)
+	CreateTable();
 
 	////Setting the brush color to its default value
 	ChangeBrushColor( '#F1A157' );
-
 
 
 	//Action Listeners
@@ -43,14 +40,17 @@ jQuery( document ).ready( function ( $ ) {
 	$('button.wipe').click( function() { WipeCanvas(); } );
 	
 	////Toggling the "grid" view
-	$('button.grid-toggle').click(function() { $('td').toggleClass('border'); });
+	$('button.grid-toggle').click(function() { 
+		$('td').toggleClass('border'); 
+		TableResize(); 
+	});
 	
 	////Coloring in the background
 	$('button.background-fill').click(function() { ChangeBackground( brush_color ) });
 
 	////Action Listeners - Brush Related
 
-	$('td').mousedown(function(e){ 
+	$('div.grid').on('mousedown', 'td', function(e){ 
 		var cell = $(this);
 
 		//// -- If the shift key is currently held down: next action affects entire row
@@ -82,7 +82,7 @@ jQuery( document ).ready( function ( $ ) {
 
 
   	//// -- Checks if is currently being hovered over while clicking
-  	$('td').hover( function() {
+  	$('div.grid').on('mouseover', 'td', function() {
 
   		//// -- If Left Click and Hover - call the Draw function
   		if (left_down) {
@@ -92,6 +92,10 @@ jQuery( document ).ready( function ( $ ) {
   		} else if (right_down) {
   			WipeColor( $(this) );
   		}
+  	});
+
+  	$('div.resize button').click(function() {
+  		CreateTable( $(this).attr('id') );
   	});
 
   	////Action Listeners - Zoom Related
@@ -131,7 +135,16 @@ jQuery( document ).ready( function ( $ ) {
 
 		//// -- Reset individual cell's heigh and width
 		var width = $('td').width();
-		$('td').height(width + 2);
+		var offset;
+
+		//// -- Compensate for the border to avoid having rectangles
+		if ( $('td').hasClass('border') ) {
+			offset = 4;
+		} else {
+			offset = 2;
+		}
+
+		$('td').height(width + offset);
 
 		//// -- Set a minimum height so that the table doesn't bleed out under the header
 		$('div.table-wrapper').css('min-height', $('table').css('height'));
@@ -200,5 +213,25 @@ jQuery( document ).ready( function ( $ ) {
 
 		//// -- We also want our Color Picker to set it as its current color
 		$('button.brush-color').ColorPickerSetColor( color );
+	}
+
+	function CreateTable( data ) {
+		if (data == 'small') {
+			size = 16;
+		} else if (data == 'large') {
+			size = 64;
+		} else {
+			size = 32;
+		}
+
+		post_data = { 'size' : size };
+		console.log(post_data);
+		serialized_data = $.param(post_data);
+		console.log(serialized_data);
+		$.post('table.php', serialized_data, function( output ) {
+			console.log(output);
+			$('div.grid').html( output );
+			TableResize();
+		});
 	}
 } );

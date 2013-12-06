@@ -147,3 +147,8 @@ div.colorbox-content {
 	padding: 20px;
 	text-align: center;
 }
+
+div.resize {
+	position: absolute;
+	z-index: 1000;
+}
