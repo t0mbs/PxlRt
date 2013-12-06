@@ -16,6 +16,7 @@ jQuery( document ).ready( function ( $ ) {
 
 	////Table Size keeps tabs on the dimensions of the table
 	var table_size;
+
 	////Left and Right down booleans enable click-and-drag coloring or click-and-drag erasing
 	var left_down = false;
 	var right_down = false;
@@ -77,10 +78,7 @@ jQuery( document ).ready( function ( $ ) {
 		var cell = $(this);
 
 		//// -- If the shift key is currently held down: next action affects entire row
-		if (e.shiftKey) {
-			BucketFill( cell, prev_color );
-		//// -- If CTRL key is currently held down, change brush color to cell color
-		} else if (e.ctrlKey) {
+		if (e.ctrlKey) {
 			ChangeBrushColor( prev_color );
 
 		//// -- If Right Click - call the Erase function and set right boolean to true (for click and drag)
@@ -267,38 +265,5 @@ jQuery( document ).ready( function ( $ ) {
 			TableResize();
 			SetTableSize();
 		});
-	}
-
-	function BucketFill( td, prev_color ) {
-		brush_color;
-		table_size;
-
-		if (brush_color !== prev_color) {
-			var index = td.index();
-			var vindex = td.parent('tr').index();
-			var $left = td.prev('td');
-			var $right = td.next('td');
-			var $top = td.parent('tr').prev('tr').children('td').eq(index);
-			var $bot = td.parent('tr').next('tr').children('td').eq(index);
-
-			if (index > 0 && index < table_size) {
-				RecursiveFill($left, prev_color);
-				RecursiveFill($right, prev_color);
-				console.log('horiz call ' + index);
-			}
-			if (vindex > 0 && vindex < table_size) {
-				RecursiveFill($top, prev_color);
-				RecursiveFill($bot, prev_color);
-				console.log('vert call' + vindex);
-			}
-		}
-	}
-
-	function RecursiveFill( cell, prev_color ) {
-		brush_color;
-		if ( cell.css('background-color') == prev_color ) {
-			ChangeColor( brush_color, cell );
-			BucketFill( cell, prev_color );
-		}
 	}
 } );
