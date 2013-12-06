@@ -1,5 +1,4 @@
 body {
-	font-family: 'Electrolize', sans-serif;
 	margin: 0;
 	height: 100%;
 	min-height: 300px;
@@ -9,6 +8,7 @@ body {
 
 body, body * {
 	cursor: url('images/sword-cursor.png'), crosshair;
+	font-family: 'Electrolize', sans-serif;
 }
 
 div.header {
@@ -93,15 +93,12 @@ button {
 	background-repeat: no-repeat;
 }
 
-button:active {
+button:active, button.current {
 	border-bottom-color: #F77C2A;
 	border-right-color: #F77C2A;
 	border-top-color: #000;
 	border-left-color: #000;
-}
-
-button:hover {
-	background-color: #fff;
+	background-color: #888;
 }
 
 button.zoom.out {

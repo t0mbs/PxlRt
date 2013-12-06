@@ -95,6 +95,8 @@ jQuery( document ).ready( function ( $ ) {
   	});
 
   	$('div.resize button').click(function() {
+  		$('div.resize button').removeClass('current');
+		$(this).addClass('current');
   		CreateTable( $(this).attr('id') );
   	});
 
