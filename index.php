@@ -18,7 +18,8 @@
 			<a title="Zoom Out (min width is 275px)"><button class="zoom in"></button></a>
 			<a title="Reset Zoom"><button class="zoom clear"></button></a>
 			<a title="Fill Background"><button class="background-fill"></button></a>
-			<button class="test"></button>
+			<a title="Brush Color"><button class="brush-color"></button></a>
+
 		</div>
 	</div>
 	<div class="grid border">
@@ -31,24 +32,6 @@
 				</tr>
 			<?php endfor; ?>
 		</table>
-	</div>
-
-	<div class="sidebar">
-		<h2>Quick Guide</h2>
-		<ul>
-			<li>
-				To start drawing, click on a pixel to color
-			</li>
-			<li>
-				Right-click on a single pixel to wipe it
-			</li>
-			<li>
-				Control-click on a pixel to get its color
-			</li>
-			<li>
-				Click and drag to color multiple squares at once.
-			</li>
-		</ul>
 	</div>
 </body>
 </html>

@@ -1,26 +1,30 @@
 jQuery( document ).ready( function ( $ ) {
-	var brush_color = '#000080';
+	//Set Variables
+	////Brush Color will keep track of our main color
+	var brush_color;
+	////Left and Right down booleans enable click-and-drag coloring or click-and-drag erasing
 	var left_down = false;
 	var right_down = false;
-	var mouse_position = { x: 0, y: 0 };
 
-	//functions to run on page load
-	TableResize();
-	ChangeBrushColor( '#000080' );
-
-	//Action Listeners
-
-	$(window).resize( function () { TableResize(); } );
-	$('button.wipe').click( function() { WipeColor( $('td') ); } );
-	$('button.grid-toggle').click(function() { $('td').toggleClass('border'); });
-	$('button.background-fill').click(function() { ChangeBackground( brush_color ) });
-
-	$('button.test').ColorPicker({
+	//Functions to run on page load
+	////Instantiating the Color Picker API
+	$('button.brush-color').ColorPicker({
 		layout : 'hex',
 		onChange:function( hsb, hex, rgb, fromSetColor ) {
 			ChangeBrushColor('#' + hex);
 		}
-		});
+	});
+	////Making sure all table cells start with an equal height and width
+	TableResize();
+	////Setting the brush color and the 
+	ChangeBrushColor( '#F1A157' );
+
+	//Action Listeners
+
+	$(window).resize( function () { TableResize(); } );
+	$('button.wipe').click( function() { WipeCanvas(); } );
+	$('button.grid-toggle').click(function() { $('td').toggleClass('border'); });
+	$('button.background-fill').click(function() { ChangeBackground( brush_color ) });
 
 	////Rebinds the right-click to erase a single cell
 	$('td').mousedown(function(e){ 
@@ -56,11 +60,6 @@ jQuery( document ).ready( function ( $ ) {
   		left_down = false;
   	});
 
-  	$(document).mousemove(function(event) {
-        mouse_position.x = event.pageX;
-        mouse_position.y = event.pageY;
-    });
-
   	////Checks if is currently being hovered over while clicking; this enables to colour multiple squares at once
   	$('td').hover( function() {
   		if (left_down) {
@@ -95,8 +94,13 @@ jQuery( document ).ready( function ( $ ) {
 		} else {
 			//If not we will override the inline classes of background-image and background-color
 			td.css( 'background-image', '' );
-			td.css( 'background-color', 'none' );
 		}
+	}
+
+	function WipeCanvas() {
+		$('td').css('background-color', 'none');
+		$('td').css('background-image', '');
+		$('td').addClass('clear');
 	}
 
 	function ChangeBackground ( color ) {
@@ -114,7 +118,7 @@ jQuery( document ).ready( function ( $ ) {
 	function ChangeBrushColor( color ) {
 		brush_color;
 		brush_color = color;
-		$('button.test').css( 'background-color', color );
-		$('button.test').ColorPickerSetColor( color );
+		$('button.brush-color').css( 'background-color', color );
+		$('button.brush-color').ColorPickerSetColor( color );
 	}
 } );

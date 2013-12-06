@@ -4,30 +4,35 @@ body {
 	height: 100%;
 	min-height: 300px;
 	overflow: hidden;
+	background-color: silver;
+}
+
+body, body * {
+	cursor: url('images/sword-cursor.png'), crosshair;
 }
 
 div.header {
+	height: 10%;
 	width: 100%;
-	border-bottom: 2px solid #3366FF;
+	border-bottom: 2px solid #F1A157;
 	text-align: center;
-	color: #3366FF;
+	color: #F1A157;
 	min-height: 65px;
+	position: relative;
+	background-color: #333;
+}
+
+div.header p.stamp {
+	position: absolute;
+	bottom: 0;
+	left: 20;
 }
 
 div.grid {
-	height: 80%;
+	height: 90%;
 	width: 100%;
 	min-width: 200px;
-	cursor: url('images/sword-cursor.png'), crosshair;
 	overflow: scroll;
-}
-
-div.grid.eraser {
-	cursor: url('images/shovel-cursor.png'), crosshair;
-}
-
-div.grid.picker {
-	cursor: url('images/pickaxe-cursor.png'), crosshair;
 }
 
 div.grid table {
@@ -67,6 +72,9 @@ button {
 	background-color: #aaa;
 	min-height: 54px;
 	min-width: 54px;
+	background-size: 40px;
+	background-position: 4;
+	background-repeat: no-repeat;
 }
 
 button:hover {
