@@ -1,5 +1,13 @@
 jQuery( document ).ready( function ( $ ) {
 
+	/*
+	Comments legend
+	"//" = Category
+	"////" = Details about the following function
+	"//// -- " = Details about the current function
+	"//// -n-" = Note  
+	*/
+
 	//Set Variables
 	////Brush Color will keep track of our main color
 	var brush_color;
@@ -49,6 +57,15 @@ jQuery( document ).ready( function ( $ ) {
 	$('button.background-fill').click(function() { ChangeBackground( brush_color ) });
 
 	////Action Listeners - Brush Related
+
+	$('div.collapse').click(function() {
+
+		//// -- The trigged for the Grooveshark music player
+		//// -n- While a 'Slide' effect animation would've been more esthetically pleasing,
+		//		 I ran into issues with the SWF object's reaction to being hidden - TODO
+		$(this).next('object').toggleClass('down');
+		$(this).toggleClass('down');
+	});
 
 	$('div.grid').on('mousedown', 'td', function(e){ 
 		var cell = $(this);
@@ -166,8 +183,6 @@ jQuery( document ).ready( function ( $ ) {
 		//// -- We want the "erase" function to make the cells the "current background color" rather than empty
 		var current_background_image = $('td.clear').css('background-image');
 		var current_background = $('td.clear').css('background-color');
-		console.log(current_background_image);
-		console.log(current_background);
 		td.addClass( 'clear' );
 		
 		//// -- First check if the background-image has been overriden on our "clear" cells

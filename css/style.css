@@ -6,7 +6,7 @@ body {
 	background-color: silver;
 }
 
-body, body * {
+body, body *, div.playlist object {
 	cursor: url('images/sword-cursor.png'), crosshair;
 	font-family: 'Electrolize', sans-serif;
 }
@@ -52,6 +52,7 @@ div.grid table {
     bottom: 0; 
     left: 0; 
     right: 0;
+    display: hidden;
 }
 
 div.grid td {
@@ -148,4 +149,34 @@ div.colorbox-content {
 div.resize {
 	position: absolute;
 	z-index: 1000;
+}
+
+div.playlist {
+	position: absolute;
+	bottom: 0;
+	z-index: 1000;
+}
+
+div.playlist div.collapse {
+	position: absolute;
+	bottom: 140;
+	width: 191px;
+	height: 20px;
+	border: 5px solid orange;
+	color: white;
+	border: 5px solid orange;
+	background-color: grey;
+}
+
+div.playlist object {
+	position: absolute;
+	bottom: 0;
+}
+
+div.playlist object.down {
+	bottom: -145;
+}
+
+div.playlist div.collapse.down {
+	bottom: 0;
 }
