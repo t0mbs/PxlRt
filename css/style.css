@@ -24,8 +24,8 @@ div.header {
 
 div.header p.stamp {
 	position: absolute;
-	bottom: 0;
-	left: 20;
+	bottom: -9;
+	left: 10;
 }
 
 div.grid {
@@ -33,12 +33,14 @@ div.grid {
 	width: 100%;
 	min-width: 200px;
 	overflow: scroll;
+	position: relative;
 }
 
 div.grid table {
 	width: 50%;
 	margin: auto;
-	background-color: grey;
+	position: absolute;
+    top: 0; bottom: 0; left: 0; right: 0;
 }
 
 div.grid td {
@@ -68,13 +70,24 @@ div.quick-palette div {
 }
 
 button {
-	border: 5px solid grey;
+	border: 5px solid;
+	border-top-color: #F77C2A;
+	border-left-color: #F77C2A;
+	border-bottom-color: #000;
+	border-right-color: #000;
 	background-color: #aaa;
 	min-height: 54px;
 	min-width: 54px;
 	background-size: 40px;
 	background-position: 4;
 	background-repeat: no-repeat;
+}
+
+button:active {
+	border-bottom-color: #F77C2A;
+	border-right-color: #F77C2A;
+	border-top-color: #000;
+	border-left-color: #000;
 }
 
 button:hover {
@@ -105,8 +118,22 @@ button.background-fill {
 	background-image: url('images/paint-bucket.png');
 }
 
+button.help {
+	background-image: url('images/help.png');
+	background-size: 100%;
+	background-position: 0;
+}
+
 td.clear {
 	background: url('images/empty-tile.png') 0 0;
 	background-size: 100%;
 }
 
+div.hidden {
+	display: none;
+}
+
+div.colorbox-content {
+	padding: 20px;
+	text-align: center;
+}

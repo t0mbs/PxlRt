@@ -25,6 +25,13 @@ jQuery( document ).ready( function ( $ ) {
 	$('button.wipe').click( function() { WipeCanvas(); } );
 	$('button.grid-toggle').click(function() { $('td').toggleClass('border'); });
 	$('button.background-fill').click(function() { ChangeBackground( brush_color ) });
+	$('.lightbox-link').colorbox({
+		inline	: true,
+		width	: 800,
+		fixed   : true
+	});
+
+	$('button#cboxClose').hover(function() { return false; });
 
 	////Rebinds the right-click to erase a single cell
 	$('td').mousedown(function(e){ 
