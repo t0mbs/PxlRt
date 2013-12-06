@@ -69,7 +69,7 @@ jQuery( document ).ready( function ( $ ) {
 		//// -- The trigged for the Grooveshark music player
 		//// -n- While a 'Slide' effect animation would've been more esthetically pleasing,
 		//		 I ran into issues with the SWF object's reaction to being hidden - TODO
-		$(this).next('object').toggleClass('down');
+		$(this).next('object.grooveshark-player').toggleClass('down');
 		$(this).toggleClass('down');
 	});
 
