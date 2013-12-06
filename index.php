@@ -42,7 +42,7 @@
 				<?php for ($i=0; $i<TABLE_DIMENSIONS; $i+=1) : ?>
 					<tr>
 					<?php for ($j=0; $j<TABLE_DIMENSIONS; $j+=1) : ?>
-						<td class="clear"></td>
+						<td class="clear" title="<?= $i ?>, <?= $j ?>"></td>
 					<?php endfor; ?>
 					</tr>
 				<?php endfor; ?>
