@@ -1,4 +1,5 @@
 jQuery( document ).ready( function ( $ ) {
+
 	//Set Variables
 	////Brush Color will keep track of our main color
 	var brush_color;
@@ -6,7 +7,10 @@ jQuery( document ).ready( function ( $ ) {
 	var left_down = false;
 	var right_down = false;
 
+
+
 	//Functions to run on page load
+	
 	////Instantiating the Color Picker API
 	$('button.brush-color').ColorPicker({
 		layout : 'hex',
@@ -14,118 +18,187 @@ jQuery( document ).ready( function ( $ ) {
 			ChangeBrushColor('#' + hex);
 		}
 	});
-	////Making sure all table cells start with an equal height and width
-	TableResize();
-	////Setting the brush color and the 
-	ChangeBrushColor( '#F1A157' );
 
-	//Action Listeners
-
-	$(window).resize( function () { TableResize(); } );
-	$('button.wipe').click( function() { WipeCanvas(); } );
-	$('button.grid-toggle').click(function() { $('td').toggleClass('border'); });
-	$('button.background-fill').click(function() { ChangeBackground( brush_color ) });
+	////Instantiating the Color Box (lightbox) API for the Help Button
 	$('.lightbox-link').colorbox({
 		inline	: true,
 		width	: 800,
 		fixed   : true
 	});
 
-	$('button#cboxClose').hover(function() { return false; });
+	////Making sure all table cells start with an equal height and width
+	TableResize();
 
-	////Rebinds the right-click to erase a single cell
+	////Setting the brush color to its default value
+	ChangeBrushColor( '#F1A157' );
+
+
+
+	//Action Listeners
+	
+	////Resizing cells with window resize
+	$(window).resize( function () { TableResize(); } );
+	
+	////Wiping canvas clean 
+	$('button.wipe').click( function() { WipeCanvas(); } );
+	
+	////Toggling the "grid" view
+	$('button.grid-toggle').click(function() { $('td').toggleClass('border'); });
+	
+	////Coloring in the background
+	$('button.background-fill').click(function() { ChangeBackground( brush_color ) });
+
+	////Action Listeners - Brush Related
+
 	$('td').mousedown(function(e){ 
+		var cell = $(this);
+
+		//// -- If the shift key is currently held down: next action affects entire row
+		if (e.shiftKey) {
+			cell = $(this).parent( 'tr' ).children( 'td' );
+		}
+
+		//// -- If CTRL key is currently held down, change brush color to cell color
 		if (e.ctrlKey) {
 			ChangeBrushColor( $(this).css('background-color') )
+
+		//// -- If Right Click - call the Erase function and set right boolean to true (for click and drag)
         } else if( e.button == 2 ) { 
 	    	right_down = true;
-	    	WipeColor( $(this) );
+	    	WipeColor( cell );
+
+	    //// -- If Left Click - call the Draw function and set left boolean to true
 	    } else if (e.button == 0) {
 	    	left_down = true;
-	    	ChangeColor( brush_color, $(this) );
+	    	ChangeColor( brush_color, cell );
 	    }
   	});
 
-  	$('button.zoom').click(function() {
-  		var current_width = $('table').width();
-  		if ( $(this).hasClass('out') ) {
-  			if (current_width > 275) {
-  				$('table').css('width', current_width * 0.9);
-  			}
-  		} else if ( $(this).hasClass('clear') ) {
-  			$('table').css('width', '50%');
-  		} else {
-  			if (current_width < 5000) {
-  				$('table').css('width', current_width * 1.1);
-  			}
-  		}
-  		TableResize();
-  	});
-
+	//// -- If the user stops clicking, reset both booleans to false
   	$(document).mouseup(function(e) {
   		right_down = false;
   		left_down = false;
   	});
 
-  	////Checks if is currently being hovered over while clicking; this enables to colour multiple squares at once
+
+  	//// -- Checks if is currently being hovered over while clicking
   	$('td').hover( function() {
+
+  		//// -- If Left Click and Hover - call the Draw function
   		if (left_down) {
   			ChangeColor( brush_color, $(this) );
+
+  		//// -- If Right Click and Hover - call the Erase function
   		} else if (right_down) {
   			WipeColor( $(this) );
   		}
   	});
 
+  	////Action Listeners - Zoom Related
+  	//// -- Note: I opted to have a common class for the zoom buttons to be able to manage them more simply
+  	$('button.zoom').click(function() {
+
+  		//// -- Users are sneaky people, to avoid their trying to break or bug their own interface, we've set a max and min size
+  		var min_size = 275;
+  		var max_size = 5000;
+  		var current_width = $('table').width();
+
+  		//// -- On click of Zoom Out, if the size isn't smaller than the minimum, reduce size of table by 10%;
+  		if ( $(this).hasClass('out') ) {
+  			if (current_width > min_size) {
+  				$('table').css('width', current_width * 0.9);
+  			}
+
+  		//// -- Wipes the in-line CSS resetting the table size to the default
+  		} else if ( $(this).hasClass('clear') ) {
+  			$('table').css('width', '');
+
+  		//// -- Same as Zoom Out except increases size by 10%
+  		} else {
+  			if (current_width < max_size) {
+  				$('table').css('width', current_width * 1.1);
+  			}
+  		}
+
+  		//// -- After resizing the table we must resize the cells to ensure that they're square
+  		TableResize();
+  	});
+
+
 	//Helper Functions
 	////Table Resize ensures that the cells are responsive and remain square shapped
 	function TableResize() {
-	  var width = $('td').width();
-	  $('td').height(width + 2);
+
+		//// -- Reset individual cell's heigh and width
+		var width = $('td').width();
+		$('td').height(width + 2);
+
+		//// -- Set a minimum height so that the table doesn't bleed out under the header
+		$('div.table-wrapper').css('min-height', $('table').css('height'));
 	}
 
 	////Change Color changes the color of an individual table cell
 	function ChangeColor( color, td ) {
+
+		//// -- The clear class indicates an empty cell
 		td.removeClass( 'clear' );
 		td.css( 'background-color', color );
 	}
 
+	////Erase function
 	function WipeColor( td ) {
-		//We want the "erase" function to make the cells the "current background color" rather than empty
+		
+		//// -- We want the "erase" function to make the cells the "current background color" rather than empty
 		var current_background_image = $('td.clear').css('background-image');
 		var current_background = $('td.clear').css('background-color');
 		td.addClass( 'clear' );
-		//To do so we first check if the background-image has been overriden on our "clear" cells
+		
+		//// -- First check if the background-image has been overriden on our "clear" cells
 		if (current_background_image == 'none') {
-			//If so we will paint this cell the same color as our clear cells
+			
+			//// -- If so we will paint this cell the same color as our clear cells
 			td.css( 'background-color', current_background );
 		} else {
-			//If not we will override the inline classes of background-image and background-color
+
+			//// -- If not we will override the inline classes of background-image and background-color
 			td.css( 'background-image', '' );
 		}
 	}
 
+	////Reset our entire canvas
 	function WipeCanvas() {
+		//// -- Override the cell's inline CSS (put there by our JS functions)
 		$('td').css('background-color', 'none');
 		$('td').css('background-image', '');
+
+		//// -- Make sure they are labeled as empty
 		$('td').addClass('clear');
 	}
 
+	////Change the color of our background
 	function ChangeBackground ( color ) {
-		//Step 1 is to "wipe" the tiles that have the same colour as our desired background
+
+		//// -- First "wipe" the tiles that have the same colour as our desired background
+		//// -n- I decided to do this because it makes the experience much simpler
 		var current_background = $('td.clear').css('background-color');
 		$('td').filter(function() {
 		   return $(this).css('background-color') == current_background;
 		}).addClass('clear');
 
-		//Step 2 is to remove the "empty" background-image and colour in the specific tiles
+		//// -- Secondly is to remove the "empty" background-image and colour in the specific tiles
 		$('td.clear').css('background-image', 'none');
 		$('td.clear').css('background-color', color);
 	}
 
+	////Change the color of our brush
 	function ChangeBrushColor( color ) {
 		brush_color;
 		brush_color = color;
+
+		//// -- We want our brush-color button to display this color
 		$('button.brush-color').css( 'background-color', color );
+
+		//// -- We also want our Color Picker to set it as its current color
 		$('button.brush-color').ColorPickerSetColor( color );
 	}
 } );

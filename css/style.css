@@ -33,18 +33,28 @@ div.grid {
 	width: 100%;
 	min-width: 200px;
 	overflow: scroll;
+}
+
+/* 
+Since the table itself is in absolute positioning with both top and bottom values set to 0
+the table wrapper ensures that it doesn't bleed out under the header 
+ */
+div.table-wrapper {
 	position: relative;
+	height: 100%;
 }
 
 div.grid table {
 	width: 50%;
 	margin: auto;
 	position: absolute;
-    top: 0; bottom: 0; left: 0; right: 0;
+    top: 0; 
+    bottom: 0; 
+    left: 0; 
+    right: 0;
 }
 
 div.grid td {
-	width: 2.2%;
 	-webkit-touch-callout: none;
 	-webkit-user-select: none;
 	-khtml-user-select: none;

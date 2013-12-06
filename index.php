@@ -32,19 +32,22 @@
 				<li>To erase simply right-click on the pertinant pixel</li>
 				<li>To select a color from a pixel, control-click on that pixel</li>
 				<li>Click and drag to color or erase multiple pixels at once</li>
+				<li>Shift and click to paint / erase a row</li>
 			</ul>
 		</div>
 	</div>
 	<div class="grid border">
-		<table cellspacing="0">
-			<?php for ($i=0; $i<TABLE_DIMENSIONS; $i+=1) : ?>
-				<tr>
-				<?php for ($j=0; $j<TABLE_DIMENSIONS; $j+=1) : ?>
-					<td class="clear"></td>
+		<div class="table-wrapper">
+			<table cellspacing="0">
+				<?php for ($i=0; $i<TABLE_DIMENSIONS; $i+=1) : ?>
+					<tr>
+					<?php for ($j=0; $j<TABLE_DIMENSIONS; $j+=1) : ?>
+						<td class="clear"></td>
+					<?php endfor; ?>
+					</tr>
 				<?php endfor; ?>
-				</tr>
-			<?php endfor; ?>
-		</table>
+			</table>
+		</div>
 	</div>
 </body>
 </html>
