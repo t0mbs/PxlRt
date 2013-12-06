@@ -1,3 +1,5 @@
+/* General Styles */
+
 body {
 	margin: 0;
 	height: 100%;
@@ -10,6 +12,12 @@ body, body *, div.playlist object {
 	cursor: url('images/sword-cursor.png'), crosshair;
 	font-family: 'Electrolize', sans-serif;
 }
+
+div.hidden {
+	display: none;
+}
+
+/* Header Styles */
 
 div.header {
 	height: 10%;
@@ -28,46 +36,7 @@ div.header p.stamp {
 	left: 10;
 }
 
-div.grid {
-	height: 90%;
-	width: 100%;
-	min-width: 200px;
-	overflow: scroll;
-}
-
-/* 
-Since the table itself is in absolute positioning with both top and bottom values set to 0
-the table wrapper ensures that it doesn't bleed out under the header 
- */
-div.table-wrapper {
-	position: relative;
-	height: 100%;
-}
-
-div.grid table {
-	width: 50%;
-	margin: auto;
-	position: absolute;
-    top: 0; 
-    bottom: 0; 
-    left: 0; 
-    right: 0;
-    display: hidden;
-}
-
-div.grid td {
-	-webkit-touch-callout: none;
-	-webkit-user-select: none;
-	-khtml-user-select: none;
-	-moz-user-select: none;
-	-ms-user-select: none;
-	user-select: none;
-}
-
-div.grid .border {
-	border: 1px solid #ccc;
-}
-
+/* -- Quick Palette and relevant buttons */
 
 div.quick-palette {
 	margin: auto;
@@ -132,15 +101,6 @@ button.help {
 	background-position: 0;
 }
 
-td.clear {
-	background: url('images/empty-tile.png') 0 0;
-	background-size: 100%;
-}
-
-div.hidden {
-	display: none;
-}
-
 div.colorbox-content {
 	padding: 20px;
 	text-align: center;
@@ -150,6 +110,8 @@ div.resize {
 	position: absolute;
 	z-index: 1000;
 }
+
+/* Playlist Styles */
 
 div.playlist {
 	position: absolute;
@@ -179,4 +141,47 @@ div.playlist object.down {
 
 div.playlist div.collapse.down {
 	bottom: 0;
+}
+
+/* Grid and Table Styles */
+
+div.grid {
+	height: 90%;
+	width: 100%;
+	min-width: 200px;
+	overflow: scroll;
+}
+
+div.table-wrapper {
+	position: relative;
+	height: 100%;
+}
+
+div.grid table {
+	width: 50%;
+	margin: auto;
+	position: absolute;
+    top: 0; 
+    bottom: 0; 
+    left: 0; 
+    right: 0;
+    display: hidden;
+}
+
+div.grid td {
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
+div.grid .border {
+	border: 1px solid #ccc;
+}
+
+td.clear {
+	background: url('images/empty-tile.png') 0 0;
+	background-size: 100%;
 }

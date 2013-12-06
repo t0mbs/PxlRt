@@ -5,12 +5,17 @@ jQuery( document ).ready( function ( $ ) {
 	"//" = Category
 	"////" = Details about the following function
 	"//// -- " = Details about the current function
-	"//// -n-" = Note  
+	"//// -n-" = Note 
+
+	Good luck, and enjoy!
 	*/
 
 	//Set Variables
 	////Brush Color will keep track of our main color
 	var brush_color;
+
+	////Table Size keeps tabs on the dimensions of the table
+	var table_size;
 	////Left and Right down booleans enable click-and-drag coloring or click-and-drag erasing
 	var left_down = false;
 	var right_down = false;
@@ -54,7 +59,7 @@ jQuery( document ).ready( function ( $ ) {
 	});
 	
 	////Coloring in the background
-	$('button.background-fill').click(function() { ChangeBackground( brush_color ) });
+	$('button.background-fill').click(function() { ChangeBackground() });
 
 	////Action Listeners - Brush Related
 
@@ -68,16 +73,15 @@ jQuery( document ).ready( function ( $ ) {
 	});
 
 	$('div.grid').on('mousedown', 'td', function(e){ 
+		var prev_color = $(this).css('background-color');
 		var cell = $(this);
 
 		//// -- If the shift key is currently held down: next action affects entire row
 		if (e.shiftKey) {
-			cell = $(this).parent( 'tr' ).children( 'td' );
-		}
-
+			BucketFill( cell, prev_color );
 		//// -- If CTRL key is currently held down, change brush color to cell color
-		if (e.ctrlKey) {
-			ChangeBrushColor( $(this).css('background-color') )
+		} else if (e.ctrlKey) {
+			ChangeBrushColor( prev_color );
 
 		//// -- If Right Click - call the Erase function and set right boolean to true (for click and drag)
         } else if( e.button == 2 ) { 
@@ -210,18 +214,19 @@ jQuery( document ).ready( function ( $ ) {
 	}
 
 	////Change the color of our background
-	function ChangeBackground ( color ) {
-
+	function ChangeBackground() {
+		brush_color;
 		//// -- First "wipe" the tiles that have the same colour as our desired background
-		//// -n- I decided to do this because it makes the experience much simpler
+		//// -n- I decided to do this because it makes the experience much simpler this is also a major performance booster
 		var current_background = $('td.clear').css('background-color');
+
 		$('td').filter(function() {
 		   return $(this).css('background-color') == current_background;
 		}).addClass('clear');
 
 		//// -- Secondly is to remove the "empty" background-image and colour in the specific tiles
 		$('td.clear').css('background-image', 'none');
-		$('td.clear').css('background-color', color);
+		$('td.clear').css('background-color', brush_color);
 	}
 
 	////Change the color of our brush
@@ -234,6 +239,10 @@ jQuery( document ).ready( function ( $ ) {
 
 		//// -- We also want our Color Picker to set it as its current color
 		$('button.brush-color').ColorPickerSetColor( color );
+	}
+
+	function SetTableSize() {
+		table_size = $('div.table-wrapper').data('dimension');
 	}
 
 	////Instantiate a table
@@ -256,6 +265,40 @@ jQuery( document ).ready( function ( $ ) {
 		$.post('table.php', serialized_data, function( output ) {
 			$('div.grid').html( output );
 			TableResize();
+			SetTableSize();
 		});
+	}
+
+	function BucketFill( td, prev_color ) {
+		brush_color;
+		table_size;
+
+		if (brush_color !== prev_color) {
+			var index = td.index();
+			var vindex = td.parent('tr').index();
+			var $left = td.prev('td');
+			var $right = td.next('td');
+			var $top = td.parent('tr').prev('tr').children('td').eq(index);
+			var $bot = td.parent('tr').next('tr').children('td').eq(index);
+
+			if (index > 0 && index < table_size) {
+				RecursiveFill($left, prev_color);
+				RecursiveFill($right, prev_color);
+				console.log('horiz call ' + index);
+			}
+			if (vindex > 0 && vindex < table_size) {
+				RecursiveFill($top, prev_color);
+				RecursiveFill($bot, prev_color);
+				console.log('vert call' + vindex);
+			}
+		}
+	}
+
+	function RecursiveFill( cell, prev_color ) {
+		brush_color;
+		if ( cell.css('background-color') == prev_color ) {
+			ChangeColor( brush_color, cell );
+			BucketFill( cell, prev_color );
+		}
 	}
 } );

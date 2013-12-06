@@ -12,7 +12,7 @@ if (!$_POST) {
 }
 define('TABLE_DIMENSIONS', $size, TRUE);
 ?>
-	<div class="table-wrapper">
+	<div class="table-wrapper" data-dimension="<?= $size ?>">
 		<table cellspacing="0">
 			<?php for ($i=0; $i<TABLE_DIMENSIONS; $i+=1) : ?>
 				<tr>

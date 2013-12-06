@@ -81,7 +81,7 @@
 				<li>To erase simply right-click on the pertinant pixel</li>
 				<li>To select a color from a pixel, control-click on that pixel</li>
 				<li>Click and drag to color or erase multiple pixels at once</li>
-				<li>Shift and click to paint / erase a row</li>
+				<li>BETA Feature: Shift and click to bucket-fill</li>
 			</ul>
 			<h1>Note to grader</h1>
 			<p>There are a few known bugs with the Color Picker API however due to time constraints I was unable to code my own color-picker and thought this would be an acceptable compromise</p>
