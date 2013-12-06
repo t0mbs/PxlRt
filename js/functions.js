@@ -166,17 +166,21 @@ jQuery( document ).ready( function ( $ ) {
 		//// -- We want the "erase" function to make the cells the "current background color" rather than empty
 		var current_background_image = $('td.clear').css('background-image');
 		var current_background = $('td.clear').css('background-color');
+		console.log(current_background_image);
+		console.log(current_background);
 		td.addClass( 'clear' );
 		
 		//// -- First check if the background-image has been overriden on our "clear" cells
-		if (current_background_image == 'none') {
+		if ( current_background_image == 'none' ) {
 			
 			//// -- If so we will paint this cell the same color as our clear cells
+			td.css( 'background-image', 'none' );
 			td.css( 'background-color', current_background );
 		} else {
 
 			//// -- If not we will override the inline classes of background-image and background-color
 			td.css( 'background-image', '' );
+			td.css( 'background-color', current_background );
 		}
 	}
 
@@ -217,7 +221,10 @@ jQuery( document ).ready( function ( $ ) {
 		$('button.brush-color').ColorPickerSetColor( color );
 	}
 
+	////Instantiate a table
 	function CreateTable( data ) {
+
+		//// -- Three sizes are allowed, the default value is 32 * 32
 		if (data == 'small') {
 			size = 16;
 		} else if (data == 'large') {
@@ -226,12 +233,12 @@ jQuery( document ).ready( function ( $ ) {
 			size = 32;
 		}
 
+		//// -- Serialize the data before sending it off to table.php
 		post_data = { 'size' : size };
-		console.log(post_data);
 		serialized_data = $.param(post_data);
-		console.log(serialized_data);
+
+		//// -- Standard post call, resize the table on arrival to make it look nice and purty
 		$.post('table.php', serialized_data, function( output ) {
-			console.log(output);
 			$('div.grid').html( output );
 			TableResize();
 		});
