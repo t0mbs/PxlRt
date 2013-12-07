@@ -61,7 +61,7 @@ button {
 	min-height: 54px;
 	min-width: 54px;
 	background-size: 40px;
-	background-position: 4;
+	background-position: 4px;
 	background-repeat: no-repeat;
 }
 
@@ -167,9 +167,11 @@ div.grid table {
     bottom: 0px; 
     left: 0px; 
     right: 0px;
-    display: hidden;
 }
 
+/* 
+This, while being an obsucre piece of coding, ensures that users cannot select the "text" inside the table cells
+*/
 div.grid td {
 	-webkit-touch-callout: none;
 	-webkit-user-select: none;
